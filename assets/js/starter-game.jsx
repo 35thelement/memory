@@ -9,7 +9,99 @@ export default function game_init(root) {
 class Starter extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { left: false };
+    this.state = {
+      clicks: 0,
+      board: {
+        r1: {
+          c1: {
+            letter: "F",
+            selected: FALSE,
+            matched: FALSE
+          },
+          c2: {
+            letter: "B",
+            selected: FALSE,
+            matched: FALSE
+          },
+          c3: {
+            letter: "A",
+            selected: FALSE,
+            matched: FALSE
+          },
+          c4: {
+            letter: "E",
+            selected: FALSE,
+            matched: FALSE
+          }
+        },
+        r2: {
+          c1: {
+            letter: "C",
+            selected: FALSE,
+            matched: FALSE
+          },
+          c2: {
+            letter: "G",
+            selected: FALSE,
+            matched: FALSE
+          },
+          c3: {
+            letter: "A",
+            selected: FALSE,
+            matched: FALSE
+          },
+          c4: {
+            letter: "D",
+            selected: FALSE,
+            matched: FALSE
+          }
+        },
+        r3: {
+          c1: {
+            letter: "D",
+            selected: FALSE,
+            matched: FALSE
+          },
+          c2: {
+            letter: "C",
+            selected: FALSE,
+            matched: FALSE
+          },
+          c3: {
+            letter: "F",
+            selected: FALSE,
+            matched: FALSE
+          },
+          c4: {
+            letter: "G",
+            selected: FALSE,
+            matched: FALSE
+          }
+        },
+        r4: {
+          c1: {
+            letter: "B",
+            selected: FALSE,
+            matched: FALSE
+          },
+          c2: {
+            letter: "H",
+            selected: FALSE,
+            matched: FALSE
+          },
+          c3: {
+            letter: "E",
+            selected: FALSE,
+            matched: FALSE
+          },
+          c4: {
+            letter: "H",
+            selected: FALSE,
+            matched: FALSE
+          }
+        }
+      }
+    };
   }
 
   swap(_ev) {
