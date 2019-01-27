@@ -15,89 +15,89 @@ class Starter extends React.Component {
         r1: {
           c1: {
             letter: "F",
-            selected: FALSE,
-            matched: FALSE
+            selected: false,
+            matched: false
           },
           c2: {
             letter: "B",
-            selected: FALSE,
-            matched: FALSE
+            selected: false,
+            matched: false
           },
           c3: {
             letter: "A",
-            selected: FALSE,
-            matched: FALSE
+            selected: false,
+            matched: false
           },
           c4: {
             letter: "E",
-            selected: FALSE,
-            matched: FALSE
+            selected: false,
+            matched: false
           }
         },
         r2: {
           c1: {
             letter: "C",
-            selected: FALSE,
-            matched: FALSE
+            selected: false,
+            matched: false
           },
           c2: {
             letter: "G",
-            selected: FALSE,
-            matched: FALSE
+            selected: false,
+            matched: false
           },
           c3: {
             letter: "A",
-            selected: FALSE,
-            matched: FALSE
+            selected: false,
+            matched: false
           },
           c4: {
             letter: "D",
-            selected: FALSE,
-            matched: FALSE
+            selected: false,
+            matched: false
           }
         },
         r3: {
           c1: {
             letter: "D",
-            selected: FALSE,
-            matched: FALSE
+            selected: false,
+            matched: false
           },
           c2: {
             letter: "C",
-            selected: FALSE,
-            matched: FALSE
+            selected: false,
+            matched: false
           },
           c3: {
             letter: "F",
-            selected: FALSE,
-            matched: FALSE
+            selected: false,
+            matched: false
           },
           c4: {
             letter: "G",
-            selected: FALSE,
-            matched: FALSE
+            selected: false,
+            matched: false
           }
         },
         r4: {
           c1: {
             letter: "B",
-            selected: FALSE,
-            matched: FALSE
+            selected: false,
+            matched: false
           },
           c2: {
             letter: "H",
-            selected: FALSE,
-            matched: FALSE
+            selected: false,
+            matched: false
           },
           c3: {
             letter: "E",
-            selected: FALSE,
-            matched: FALSE
+            selected: false,
+            matched: false
           },
           c4: {
             letter: "H",
-            selected: FALSE,
-            matched: FALSE
+            selected: false,
+            matched: false
           }
         }
       }
