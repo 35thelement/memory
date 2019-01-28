@@ -11,96 +11,96 @@ class Starter extends React.Component {
     super(props);
     this.state = {
       clicks: 0,
-      board: {
-        r1: {
-          c1: {
+      board: [
+        [
+          {
             letter: "F",
             selected: false,
             matched: false
           },
-          c2: {
+          {
             letter: "B",
             selected: false,
             matched: false
           },
-          c3: {
+          {
             letter: "A",
             selected: false,
             matched: false
           },
-          c4: {
+          {
             letter: "E",
             selected: false,
             matched: false
           }
-        },
-        r2: {
-          c1: {
+        ],
+        [
+          {
             letter: "C",
             selected: false,
             matched: false
           },
-          c2: {
+          {
             letter: "G",
             selected: false,
             matched: false
           },
-          c3: {
+          {
             letter: "A",
             selected: false,
             matched: false
           },
-          c4: {
+          {
             letter: "D",
             selected: false,
             matched: false
           }
-        },
-        r3: {
-          c1: {
+        ],
+        [
+          {
             letter: "D",
             selected: false,
             matched: false
           },
-          c2: {
+          {
             letter: "C",
             selected: false,
             matched: false
           },
-          c3: {
+          {
             letter: "F",
             selected: false,
             matched: false
           },
-          c4: {
+          {
             letter: "G",
             selected: false,
             matched: false
           }
-        },
-        r4: {
-          c1: {
+        ],
+        [
+          {
             letter: "B",
             selected: false,
             matched: false
           },
-          c2: {
+          {
             letter: "H",
             selected: false,
             matched: false
           },
-          c3: {
+          {
             letter: "E",
             selected: false,
             matched: false
           },
-          c4: {
+          {
             letter: "H",
             selected: false,
             matched: false
           }
-        }
-      }
+        ]
+      ]
     };
   }
 
