@@ -104,36 +104,32 @@ class Starter extends React.Component {
     };
   }
 
-  swap(_ev) {
-    let state1 = _.assign({}, this.state, { left: !this.state.left });
-    this.setState(state1);
-  }
-
-  hax(_ev) {
-    alert("hax!");
-  }
-
   render() {
-    let button = <div className="column" onMouseMove={this.swap.bind(this)}>
-      <p><button onClick={this.hax.bind(this)}>Click Me</button></p>
-    </div>;
-
-    let blank = <div className="column">
-      <p>Nothing here.</p>
-    </div>;
-
-    if (this.state.left) {
-      return <div className="row">
-        {button}
-        {blank}
-      </div>;
-    }
-    else {
-      return <div className="row">
-        {blank}
-        {button}
-      </div>;
-    }
+    let board = _.map(this.state.board, (row, rowIndex) => {
+      return <ShowRow key={rowIndex} rowIndex={rowIndex} root={this} row={row} />;
+    });
+    return (
+      <div>{board}</div>
+    );
   }
 }
 
+function ShowRow(props) {
+  let renderedRow = _.map(props.row, (col, colIndex) => {
+    return <ShowCol
+    key={colIndex}
+    rowIndex={props.rowIndex}
+    colIndex={colIndex} root={props.root}
+    col={col} />;
+  });
+
+  return <div className="row">{renderedRow}</div>
+}
+
+function ShowCol(props) {
+  if (props.col.selected || props.col.matched) {
+    return <div className="column"><p><button>{props.col.letter}</button></p></div>
+  } else {
+    return <div className="column"><p><button>?</button></p></div>
+  }
+}
