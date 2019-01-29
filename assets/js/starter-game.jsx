@@ -106,30 +106,51 @@ class Starter extends React.Component {
 
   render() {
     let board = _.map(this.state.board, (row, rowIndex) => {
-      return <ShowRow key={rowIndex} rowIndex={rowIndex} root={this} row={row} />;
+      return <ShowRow
+      key={rowIndex}
+      rowIndex={rowIndex}
+      root={this}
+      choose={this.choose.bind(this)}
+      row={row} />;
     });
     return (
-      <div>{board}</div>
+      <div>
+      <div className="row">
+        <div className="column"><h2>Clicks: {this.state.clicks}</h2></div>
+        <div className="column"><h1>Memory Game!</h1></div>
+        <div className="column">
+          <p><button onClick={this.restart.bind()}>Restart?</button></p>
+        </div>
+      </div>
+      {board}
+      </div>
     );
   }
 }
 
 function ShowRow(props) {
   let renderedRow = _.map(props.row, (col, colIndex) => {
-    return <ShowCol
-    key={colIndex}
-    rowIndex={props.rowIndex}
-    colIndex={colIndex} root={props.root}
-    col={col} />;
+    if (col.selected || col.matched) {
+      return (
+        <div className="column" key={colIndex}>
+          <p>
+            <button>
+              {col.letter}
+            </button>
+          </p>
+        </div>
+      );
+    } else {
+      return (
+        <div className="column" key={colIndex}>
+          <p>
+            <button onClick={() => props.choose(props.rowIndex, colIndex)}>
+              ?
+            </button>
+          </p>
+        </div>
+      );
+    }
   });
-
   return <div className="row">{renderedRow}</div>
-}
-
-function ShowCol(props) {
-  if (props.col.selected || props.col.matched) {
-    return <div className="column"><p><button>{props.col.letter}</button></p></div>
-  } else {
-    return <div className="column"><p><button>?</button></p></div>
-  }
 }
