@@ -109,7 +109,7 @@ class Starter extends React.Component {
     // Set the new board.
     let newBoard = this.state.board.slice();
     // Increment the number of clicks in the new state.
-    let newClicks = this.state.clicks ++;
+    let newClicks = this.state.clicks++;
     let sRow = -1;
     let sCol = -1;
     // Look through the board to see if there's a previously selected tile.
