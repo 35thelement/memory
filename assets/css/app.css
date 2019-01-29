@@ -7,3 +7,11 @@
     text-align: center;
 }
 
+.column > h1 {
+  text-align: center;
+}
+
+.column > h2 {
+  padding-top: 4ex;
+  text-align: center;
+}
