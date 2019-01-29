@@ -122,28 +122,28 @@ class Starter extends React.Component {
           sCol = colIndex;
         }
       }
-      // If there exists a previously selected tile,
-      if (sRow > -1 && sCol > -1) {
-        // If the letter of the chosen tile is the same as the previously selected tile,
-        if (newBoard[r][c].letter === newBoard[sRow][sCol].letter) {
-          // The previously selected tile is no longer selected.
-          newBoard[sRow][sCol].selected = false;
-          // The previously selected tile is now matched.
-          newBoard[sRow][sCol].matched = true;
-          // The chosen tile is now matched.
-          newBoard[r][c].matched = true;
-          // If they don't match,
-        } else {
-          // The previously selected tile is no longer selected.
-          newBoard[sRow][sCol].selected = false;
-          // Alert the player that the letters don't match.
-          alert(newBoard[r][c].letter + "!=" + newBoard[sRow][sCol].letter);
-        }
-        // If no tile has been previously selected,
+    }
+    // If there exists a previously selected tile,
+    if (sRow > -1 && sCol > -1) {
+      // If the letter of the chosen tile is the same as the previously selected tile,
+      if (newBoard[r][c].letter === newBoard[sRow][sCol].letter) {
+        // The previously selected tile is no longer selected.
+        newBoard[sRow][sCol].selected = false;
+        // The previously selected tile is now matched.
+        newBoard[sRow][sCol].matched = true;
+        // The chosen tile is now matched.
+        newBoard[r][c].matched = true;
+        // If they don't match,
       } else {
-        // The chosen tile is now selected.
-        newBoard[r][c].selected = true;
+        // The previously selected tile is no longer selected.
+        newBoard[sRow][sCol].selected = false;
+        // Alert the player that the letters don't match.
+        alert(newBoard[r][c].letter + "!=" + newBoard[sRow][sCol].letter);
       }
+      // If no tile has been previously selected,
+    } else {
+      // The chosen tile is now selected.
+      newBoard[r][c].selected = true;
     }
     // Update the state with the new board and number of clicks.
     this.setState({ board: newBoard, clicks: newClicks });
@@ -169,14 +169,14 @@ class Starter extends React.Component {
     // Return the HTML.
     return (
       <div>
-        <div className="row">
-          <div className="column"><h2>Clicks: {this.state.clicks}</h2></div>
-          <div className="column"><h1>Welcome to Phoenix!</h1></div>
-          <div className="column">
-            <p><button onClick={this.restart.bind()}>Restart?</button></p>
-          </div>
-        </div>
-        {board}
+      <div className="row">
+      <div className="column"><h2>Clicks: {this.state.clicks}</h2></div>
+      <div className="column"><h1>Welcome to Phoenix!</h1></div>
+      <div className="column">
+      <p><button onClick={this.restart.bind()}>Restart?</button></p>
+      </div>
+      </div>
+      {board}
       </div>
     );
   }
@@ -191,30 +191,30 @@ function ShowRow(props) {
       // Return the tile showing its letter.
       return (
         <div className="column" key={colIndex}>
-          <p>
-            {/* The tile has no onClick function because selected and matched tiles
-                cannot be chosen again. */}
-            <button>
-              {col.letter}
-            </button>
+        <p>
+        {/* The tile has no onClick function because selected and matched tiles
+          cannot be chosen again. */}
+          <button>
+          {col.letter}
+          </button>
           </p>
-        </div>
-      );
-      // Otherwise,
-    } else {
-      // Return the tile hiding its letter.
-      return (
-        <div className="column" key={colIndex}>
+          </div>
+        );
+        // Otherwise,
+      } else {
+        // Return the tile hiding its letter.
+        return (
+          <div className="column" key={colIndex}>
           <p>
           {/* When clicked, the tile will choose itself. */}
-            <button onClick={() => props.choose(props.rowIndex, colIndex)}>
-              ?
-            </button>
+          <button onClick={() => props.choose(props.rowIndex, colIndex)}>
+          ?
+          </button>
           </p>
-        </div>
-      );
-    }
-  });
-  // Return the HTML.
-  return <div className="row">{renderedRow}</div>
-}
+          </div>
+        );
+      }
+    });
+    // Return the HTML.
+    return <div className="row">{renderedRow}</div>
+  }
