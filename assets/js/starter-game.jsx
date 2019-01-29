@@ -104,6 +104,40 @@ class Starter extends React.Component {
     };
   }
 
+  choose(r, c) {
+    let newBoard = this.state.board.slice();
+    let newClicks = this.state.clicks + 1;
+    if (!newBoard[r][c].matched) {
+      let sRow = -1;
+      let sCol = -1;
+      for (var rowIndex = 0; rowIndex < newBoard.length; rowIndex++) {
+        for (var colIndex = 0; colIndex < newBoard[rowIndex].length; colIndex++) {
+          if (newBoard[rowIndex][colIndex].selected) {
+            sRow = rowIndex;
+            sCol = colIndex;
+          }
+        }
+      }
+      if (sRow > -1 && sCol > -1) {
+        if (newBoard[r][c].letter === newBoard[sRow][sCol].letter) {
+          newBoard[sRow][sCol].selected = false;
+          newBoard[sRow][sCol].matched = true;
+          newBoard[r][c].matched = true;
+        } else {
+          newBoard[sRow][sCol].selected = false;
+          alert(newBoard[r][c].letter + "!=" + newBoard[sRow][sCol].letter);
+        }
+      } else {
+        newBoard[r][c].selected = true;
+      }
+    }
+    this.setState({ board: newBoard, clicks: newClicks });
+  }
+
+  restart() {
+    window.location.reload();
+  }
+
   render() {
     let board = _.map(this.state.board, (row, rowIndex) => {
       return <ShowRow
