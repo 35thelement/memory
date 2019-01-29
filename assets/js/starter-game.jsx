@@ -171,7 +171,7 @@ class Starter extends React.Component {
       <div>
         <div className="row">
           <div className="column"><h2>Clicks: {this.state.clicks}</h2></div>
-          <div className="column"><h1>Memory Game!</h1></div>
+          <div className="column"><h1>Welcome to Phoenix!</h1></div>
           <div className="column">
             <p><button onClick={this.restart.bind()}>Restart?</button></p>
           </div>
