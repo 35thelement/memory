@@ -139,7 +139,7 @@ class Starter extends React.Component {
     }
     // If we're still done with the game,
     if (done) {
-      this.setState({ score: 100 - (x - 16) });
+      this.setState({ score: 100 - (this.state.clicks - 16) });
     }
   }
 
