@@ -9,93 +9,109 @@ export default function game_init(root) {
 class Starter extends React.Component {
   constructor(props) {
     super(props);
+
+    // These are all the letters that will be shown in the board.
+    let letters = ["A", "A", "B", "B", "C", "C", "D", "D", "E", "E", "F", "F", "G", "G", "H", "H"]
+
+    // Perform Knuth shuffle as described here: https://bost.ocks.org/mike/shuffle/
+    var m = letters.length;
+    var tmp, idx;
+
+    while (m) {
+      idx = Math.floor(Math.random() * m--);
+      tmp = letters[m];
+      letters[m] = letters[idx];
+      letters[idx] = tmp
+    }
+
+    // Set the state of the board.
     this.state = {
       clicks: 0,
       board: [
         [
           {
-            letter: "F",
+            letter: letters[0],
             selected: false,
             matched: false
           },
           {
-            letter: "B",
+            letter: letters[1],
             selected: false,
             matched: false
           },
           {
-            letter: "A",
+            letter: letters[2],
             selected: false,
             matched: false
           },
           {
-            letter: "E",
+            letter: letters[3],
             selected: false,
             matched: false
           }
         ],
         [
           {
-            letter: "C",
+            letter: letters[4],
             selected: false,
             matched: false
           },
           {
-            letter: "G",
+            letter: letters[5],
             selected: false,
             matched: false
           },
           {
-            letter: "A",
+            letter: letters[6],
             selected: false,
             matched: false
           },
           {
-            letter: "D",
+            letter: letters[7],
             selected: false,
             matched: false
           }
         ],
         [
           {
-            letter: "D",
+            letter: letters[8],
             selected: false,
             matched: false
           },
           {
-            letter: "C",
+            letter: letters[9],
             selected: false,
             matched: false
           },
           {
-            letter: "F",
+            letter: letters[10],
             selected: false,
             matched: false
           },
           {
-            letter: "G",
+            letter: letters[11],
             selected: false,
             matched: false
           }
         ],
         [
           {
-            letter: "B",
+            letter: letters[12],
             selected: false,
             matched: false
           },
           {
-            letter: "H",
+            letter: letters[13],
             selected: false,
             matched: false
           },
           {
-            letter: "E",
+            letter: letters[14],
             selected: false,
             matched: false
           },
           {
-            letter: "H",
+            letter: letters[15],
             selected: false,
             matched: false
           }
