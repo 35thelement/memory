@@ -27,6 +27,7 @@ class Starter extends React.Component {
     // Set the state of the board.
     this.state = {
       clicks: 0,
+      score: 0,
       board: [
         [
           {
@@ -192,8 +193,10 @@ class Starter extends React.Component {
     return (
       <div>
       <div className="row">
-      <div className="column"><h2>Clicks: {this.state.clicks}</h2></div>
-      <div className="column"><h1>Welcome to Phoenix!</h1></div>
+      <div className="column">
+      <p>Clicks: {this.state.clicks}<br />Score: {this.state.score}</p>
+      </div>
+      <div className="column"><h1>Memory Game!</h1></div>
       <div className="column">
       <p><button onClick={this.restart.bind()}>Restart?</button></p>
       </div>
