@@ -157,6 +157,7 @@ class Starter extends React.Component {
           newBoard[sRow][sCol].matched = true;
           // The chosen tile is now matched.
           newBoard[r][c].matched = true;
+
           // If they don't match,
         } else {
           // The previously selected tile is no longer selected.
@@ -207,8 +208,8 @@ class Starter extends React.Component {
 function ShowRow(props) {
   // Render each tile in the row.
   let renderedRow = _.map(props.row, (col, colIndex) => {
-    // If the tile is selected or matched,
-    if (col.selected || col.matched) {
+    // If the tile is selected,
+    if (col.selected) {
       // Return the tile showing its letter.
       return (
         <div className="column" key={colIndex}>
@@ -219,7 +220,13 @@ function ShowRow(props) {
           </div>
           </div>
         );
-        // Otherwise,
+        // If the tile is matched,
+      } else if (col.matched) {
+        return (
+          <div className="column" key={colIndex}>
+          {/* Just return the column. The tile should not be rendered. */}
+          </div>
+        );
       } else {
         // Return the tile hiding its letter.
         return (
