@@ -196,13 +196,11 @@ function ShowRow(props) {
       // Return the tile showing its letter.
       return (
         <div className="column" key={colIndex}>
-        <p>
         {/* The tile has no onClick function because selected and matched tiles
           cannot be chosen again. */}
-          <button>
+          <div className="tile">
           {col.letter}
-          </button>
-          </p>
+          </div>
           </div>
         );
         // Otherwise,
@@ -210,12 +208,10 @@ function ShowRow(props) {
         // Return the tile hiding its letter.
         return (
           <div className="column" key={colIndex}>
-          <p>
           {/* When clicked, the tile will choose itself. */}
-          <button onClick={() => props.choose(props.rowIndex, colIndex)}>
+          <div className="tile" onClick={() => props.choose(props.rowIndex, colIndex)}>
           ?
-          </button>
-          </p>
+          </div>
           </div>
         );
       }
