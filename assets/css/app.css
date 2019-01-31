@@ -22,3 +22,10 @@
   padding: 5ex;
   margin: 2ex;
 }
+
+.column > .empty {
+  color: white;
+  background: white;
+  padding: 5ex;
+  margin: 2ex;
+}

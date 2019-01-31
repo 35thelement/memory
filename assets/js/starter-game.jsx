@@ -224,7 +224,8 @@ function ShowRow(props) {
       } else if (col.matched) {
         return (
           <div className="column" key={colIndex}>
-          {/* Just return the column. The tile should not be rendered. */}
+          {/* Render an empty tile. */}
+          <div className="empty">!</div>
           </div>
         );
       } else {
