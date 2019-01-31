@@ -123,30 +123,35 @@ class Starter extends React.Component {
         }
       }
     }
-    // If there exists a previously selected tile,
-    if (sRow > -1 && sCol > -1) {
-      // If the letter of the chosen tile is the same as the previously selected tile,
-      if (newBoard[r][c].letter === newBoard[sRow][sCol].letter) {
-        // The previously selected tile is no longer selected.
-        newBoard[sRow][sCol].selected = false;
-        // The previously selected tile is now matched.
-        newBoard[sRow][sCol].matched = true;
-        // The chosen tile is now matched.
-        newBoard[r][c].matched = true;
-        // If they don't match,
-      } else {
-        // The previously selected tile is no longer selected.
-        newBoard[sRow][sCol].selected = false;
-        // Alert the player that the letters don't match.
-        alert(newBoard[r][c].letter + "!=" + newBoard[sRow][sCol].letter);
-      }
-      // If no tile has been previously selected,
-    } else {
-      // The chosen tile is now selected.
-      newBoard[r][c].selected = true;
-    }
-    // Update the state with the new board and number of clicks.
+    // Mark the currently chosen tile as selected for display purposes.
+    newBoard[r][c].selected = true;
+    // Set the state with the new board and number of clicks.
     this.setState({ board: newBoard, clicks: newClicks });
+    // Wait 3 seconds, and then...
+    setTimeout(function () {
+      // If there exists a previously selected tile,
+      if (sRow > -1 && sCol > -1) {
+        // If the letter of the chosen tile is the same as the previously selected tile,
+        if (newBoard[r][c].letter === newBoard[sRow][sCol].letter) {
+          // The previously selected tile is no longer selected.
+          newBoard[sRow][sCol].selected = false;
+          // The currently chosen tile is no longer selected.
+          newBoard[r][c].selected = false;
+          // The previously selected tile is now matched.
+          newBoard[sRow][sCol].matched = true;
+          // The chosen tile is now matched.
+          newBoard[r][c].matched = true;
+          // If they don't match,
+        } else {
+          // The previously selected tile is no longer selected.
+          newBoard[sRow][sCol].selected = false;
+          // The currently chosen tile is no longer selected.
+          newBoard[r][c].selected = false;
+        }
+        // Update the state with the new board.
+        this.setState({ board: newBoard });
+      }
+    }.bind(this), 1000);
   }
 
   // Restart the game.
