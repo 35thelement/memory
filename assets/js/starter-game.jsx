@@ -2,124 +2,32 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
 
-export default function game_init(root) {
-  ReactDOM.render(<Starter />, root);
+export default function memory_init(root, channel) {
+  ReactDOM.render(<Memory channel={channel} />, root);
 }
 
-class Starter extends React.Component {
+
+class Memory extends React.Component {
   constructor(props) {
     super(props);
 
-    // These are all the letters that will be shown in the board.
-    let letters = ["A", "A", "B", "B", "C", "C", "D", "D", "E", "E", "F", "F", "G", "G", "H", "H"]
-
-    // Perform Knuth shuffle as described here: https://bost.ocks.org/mike/shuffle/
-    var m = letters.length;
-    var tmp, idx;
-
-    while (m) {
-      idx = Math.floor(Math.random() * m--);
-      tmp = letters[m];
-      letters[m] = letters[idx];
-      letters[idx] = tmp
-    }
-
+    this.channel = props.channel;
     // Set the state of the board.
     this.state = {
       clickable: true,
       clicks: 0,
       score: 0,
-      board: [
-        [
-          {
-            letter: letters[0],
-            selected: false,
-            matched: false
-          },
-          {
-            letter: letters[1],
-            selected: false,
-            matched: false
-          },
-          {
-            letter: letters[2],
-            selected: false,
-            matched: false
-          },
-          {
-            letter: letters[3],
-            selected: false,
-            matched: false
-          }
-        ],
-        [
-          {
-            letter: letters[4],
-            selected: false,
-            matched: false
-          },
-          {
-            letter: letters[5],
-            selected: false,
-            matched: false
-          },
-          {
-            letter: letters[6],
-            selected: false,
-            matched: false
-          },
-          {
-            letter: letters[7],
-            selected: false,
-            matched: false
-          }
-        ],
-        [
-          {
-            letter: letters[8],
-            selected: false,
-            matched: false
-          },
-          {
-            letter: letters[9],
-            selected: false,
-            matched: false
-          },
-          {
-            letter: letters[10],
-            selected: false,
-            matched: false
-          },
-          {
-            letter: letters[11],
-            selected: false,
-            matched: false
-          }
-        ],
-        [
-          {
-            letter: letters[12],
-            selected: false,
-            matched: false
-          },
-          {
-            letter: letters[13],
-            selected: false,
-            matched: false
-          },
-          {
-            letter: letters[14],
-            selected: false,
-            matched: false
-          },
-          {
-            letter: letters[15],
-            selected: false,
-            matched: false
-          }
-        ]
-      ]
+      board: []
     };
+
+    this.channel.join()
+    .receive("ok", resp => {
+      console.log("Joined successfully!", resp);
+      this.setState(resp.room);
+    })
+    .receive("error", resp => {
+      console.log("Unable to join", resp);
+    })
   }
 
   // Call this to determine whether or not the game is over.

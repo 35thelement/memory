@@ -1,5 +1,5 @@
 <script>
- window.roomName = "<%= @name %>";
+window.roomName = "<%= @name %>";
 </script>
 
 <div class="row">

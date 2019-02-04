@@ -1,5 +1,6 @@
 defmodule MemoryWeb.RoomChannel do
   use MemoryWeb, :channel
+  
   alias Memory.Room
 
   def join("room:" <> name, payload, socket) do
@@ -8,7 +9,7 @@ defmodule MemoryWeb.RoomChannel do
       socket = socket
       |> assign(:room, room)
       |> assign(:name, name)
-      {:ok, %{"join" => name, "room" => Game.client_view(room)}, socket}
+      {:ok, %{"join" => name, "room" => Room.client_view(room)}, socket}
     else
       {:error, %{reason: "unauthorized"}}
     end

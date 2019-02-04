@@ -15,14 +15,14 @@ import $ from "jquery";
 // Import local files
 //
 import socket from "./socket"
-import game_init from "./starter-game";
+import memory_init from "./starter-game";
 
 $(() => {
   let root = document.getElementById('root');
   if (root) {
-    let channel = socket.channel("room:" + window.gameName, {});
+    let channel = socket.channel("room:" + window.roomName, {});
     // We want to join in the react component.
-    game_init(root, channel);
+    memory_init(root, channel);
   }
 });
 
@@ -34,5 +34,7 @@ function updateLink() {
   roomLink.firstChild.data = 'Join "' + roomName.value + '"';
 }
 
-roomName.addEventListener('change', updateLink);
-roomName.addEventListener('keyup', updateLink);
+if (roomName) {
+  roomName.addEventListener('change', updateLink);
+  roomName.addEventListener('keyup', updateLink);
+}
