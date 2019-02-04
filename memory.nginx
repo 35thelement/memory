@@ -2,7 +2,7 @@ server {
     listen 80;
     listen [::]:80;
 
-    server_name memory1.element35.org;
+    server_name memory2.element35.org;
 
     location / {
         proxy_pass http://localhost:4791;
