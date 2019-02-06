@@ -1,98 +1,9 @@
 defmodule Memory.Room do
   def init_board do
-    letters = ["A", "A", "B", "B", "C", "C", "D", "D", "E", "E", "F", "F", "G", "G", "H", "H"]
-    |> Enum.take_random(16)
-    |> List.to_tuple()
-    [
-      [
-        %{
-          letter: elem(letters, 0),
-          selected: false,
-          matched: false
-        },
-        %{
-          letter: elem(letters, 1),
-          selected: false,
-          matched: false
-        },
-        %{
-          letter: elem(letters, 2),
-          selected: false,
-          matched: false
-        },
-        %{
-          letter: elem(letters, 3),
-          selected: false,
-          matched: false
-        }
-      ],
-      [
-        %{
-          letter: elem(letters, 4),
-          selected: false,
-          matched: false
-        },
-        %{
-          letter: elem(letters, 5),
-          selected: false,
-          matched: false
-        },
-        %{
-          letter: elem(letters, 6),
-          selected: false,
-          matched: false
-        },
-        %{
-          letter: elem(letters, 7),
-          selected: false,
-          matched: false
-        }
-      ],
-      [
-        %{
-          letter: elem(letters, 8),
-          selected: false,
-          matched: false
-        },
-        %{
-          letter: elem(letters, 9),
-          selected: false,
-          matched: false
-        },
-        %{
-          letter: elem(letters, 10),
-          selected: false,
-          matched: false
-        },
-        %{
-          letter: elem(letters, 11),
-          selected: false,
-          matched: false
-        }
-      ],
-      [
-        %{
-          letter: elem(letters, 12),
-          selected: false,
-          matched: false
-        },
-        %{
-          letter: elem(letters, 13),
-          selected: false,
-          matched: false
-        },
-        %{
-          letter: elem(letters, 14),
-          selected: false,
-          matched: false
-        },
-        %{
-          letter: elem(letters, 15),
-          selected: false,
-          matched: false
-        }
-      ]
-    ]
+    letters = ["A", "B", "C", "D", "E", "F", "G", "H"]
+    letters ++ letters
+    |> Enum.shuffle()
+    |> Enum.map(fn ltr -> %{letter: ltr, selected: false, matched: false} end)
   end
 
   def new do
@@ -105,9 +16,86 @@ defmodule Memory.Room do
 
   def client_view(room) do
     b = room.board
-
+    |> Enum.map(fn el -> if el.selected do
+      %{letter: el.letter, selected: el.selected, matched: el.matched}
+    else
+      %{letter: "?", selected: el.selected, matched: el.matched}
+    end
+  end)
+    |> Enum.chunk_every(4)
     %{
-      board: b
+      board: b,
+      clicks: room.clicks
     }
+  end
+
+  def findSelected(room, [], _) do
+    -1
+  end
+
+  def findSelected(room, [head | tail], idx) do
+    if head.selected do
+      idx
+    else
+      findSelected(room, tail, idx + 1)
+    end
+  end
+
+  def choose(room, r, c) do
+    newClicks = room.clicks + 1
+    selectedIndex = findSelected(room, room.board, 0)
+
+    index = 4 * r + c
+
+    if selectedIndex === -1 do
+      newVal = room.board
+      |> Enum.at(index)
+      |> Map.put(:selected, true)
+
+      newBoard = room.board
+      |> List.replace_at(index, newVal)
+
+      room
+      |> Map.put(:board, newBoard)
+      |> Map.put(:clicks, newClicks)
+    else
+      if Enum.at(room.board, selectedIndex).letter == Enum.at(room.board, index).letter do
+        matched1 = room.board
+        |> Enum.at(index)
+        |> Map.put(:selected, false)
+        |> Map.put(:matched, true)
+
+        matched2 = room.board
+        |> Enum.at(selectedIndex)
+        |> Map.put(:selected, false)
+        |> Map.put(:matched, true)
+
+        newBoard = room.board
+        |> List.replace_at(index, matched1)
+        |> List.replace_at(selectedIndex, matched2)
+
+        room
+        |> Map.put(:board, newBoard)
+        |> Map.put(:clicks, newClicks)
+      else
+        unmatched1 = room.board
+        |> Enum.at(index)
+        |> Map.put(:selected, false)
+        |> Map.put(:matched, false)
+
+        unmatched2 = room.board
+        |> Enum.at(selectedIndex)
+        |> Map.put(:selected, false)
+        |> Map.put(:matched, false)
+
+        newBoard = room.board
+        |> List.replace_at(index, unmatched1)
+        |> List.replace_at(selectedIndex, unmatched2)
+
+        room
+        |> Map.put(:board, newBoard)
+        |> Map.put(:clicks, newClicks)
+      end
+    end
   end
 end

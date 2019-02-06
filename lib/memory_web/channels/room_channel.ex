@@ -1,6 +1,6 @@
 defmodule MemoryWeb.RoomChannel do
   use MemoryWeb, :channel
-  
+
   alias Memory.Room
 
   def join("room:" <> name, payload, socket) do
@@ -23,9 +23,16 @@ defmodule MemoryWeb.RoomChannel do
 
   # It is also common to receive messages from the client and
   # broadcast to everyone in the current topic (room:lobby).
-  def handle_in("shout", payload, socket) do
-    broadcast socket, "shout", payload
-    {:noreply, socket}
+  def handle_in("choose", %{"row" => r, "col" => c}, socket) do
+    room = Room.choose(socket.assigns[:room], r, c)
+    socket = assign(socket, :room, room)
+    {:reply, {:ok, %{"room" => Room.client_view(room)}}, socket}
+  end
+
+  def handle_in("restart_game", _, socket) do
+    room = Room.new()
+    socket = assign(socket, :room, room)
+    {:reply, {:ok, %{"room" => Room.client_view(room)}}, socket}
   end
 
   # Add authorization logic here as required.
