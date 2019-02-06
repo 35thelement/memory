@@ -32,7 +32,7 @@ class Memory extends React.Component {
 
   // Call this function when restarting.
   restart() {
-    this.channel.push("restart_game", {})
+    this.channel.push("restart", {})
     .receive("ok", (resp) => { this.setState(resp.room); });
   }
 
@@ -70,7 +70,7 @@ class Memory extends React.Component {
       <p>Clicks: {this.state.clicks}<br />Score: {this.state.score}</p>
       </div>
       <div className="column">
-      <p><button onClick={this.restart.bind()}>Restart?</button></p>
+      <p><button onClick={this.restart.bind(this)}>Restart?</button></p>
       </div>
       </div>
       {board}
