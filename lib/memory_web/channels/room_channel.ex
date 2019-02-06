@@ -33,8 +33,10 @@ defmodule MemoryWeb.RoomChannel do
   end
 
   def handle_in("restart_game", _, socket) do
+    name = socket.assigns[:name]
     room = Room.new()
     socket = assign(socket, :room, room)
+    BackupAgent.put(name, room)
     {:reply, {:ok, %{"room" => Room.client_view(room)}}, socket}
   end
 
