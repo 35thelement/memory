@@ -16,9 +16,9 @@ defmodule Memory.Room do
 
   def render_element(el) do
     if el.displayed do
-      %{letter: el.letter, selected: el.displayed, matched: el.matched}
+      %{letter: el.letter, revealed: el.displayed, matched: el.matched}
     else
-      %{letter: "?", selected: el.displayed, matched: el.matched}
+      %{letter: "?", revealed: el.displayed, matched: el.matched}
     end
   end
 

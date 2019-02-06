@@ -84,7 +84,7 @@ function ShowRow(props) {
   // Render each tile in the row.
   let renderedRow = _.map(props.row, (col, colIndex) => {
     // If the tile is selected,
-    if (col.selected) {
+    if (col.revealed) {
       // Return an unclickable tile.
       return (
         <div className="column" key={colIndex}>
