@@ -40,9 +40,14 @@ class Memory extends React.Component {
   choose(r, c) {
     // If we can click,
     if (this.state.clickable) {
-      this.channel.push("choose", {row: r, col: c})
+      this.setState({ clickable: false });
+      this.channel.push("display", {row: r, col: c})
       .receive("ok", (resp) => { this.setState(resp.room); });
-      this.setState({ clickable: true });
+      setTimeout(function() {
+        this.channel.push("choose", {row: r, col: c})
+        .receive("ok", (resp) => { this.setState(resp.room); });
+        this.setState({ clickable: true });
+      }.bind(this), 1000);
     }
   }
 

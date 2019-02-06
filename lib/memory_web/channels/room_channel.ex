@@ -23,6 +23,15 @@ defmodule MemoryWeb.RoomChannel do
     {:reply, {:ok, payload}, socket}
   end
 
+  # Update the room when the user wants to display a value.
+  def handle_in("display", %{"row" => r, "col" => c}, socket) do
+    name = socket.assigns[:name]
+    room = Room.display(socket.assigns[:room], r, c)
+    socket = assign(socket, :room, room)
+    BackupAgent.put(name, room)
+    {:reply, {:ok, %{"room" => Room.client_view(room)}}, socket}
+  end
+
   # Update the room when the user decides to choose.
   def handle_in("choose", %{"row" => r, "col" => c}, socket) do
     name = socket.assigns[:name]
