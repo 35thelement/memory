@@ -33,7 +33,7 @@ class Memory extends React.Component {
   // Call this function when restarting.
   restart() {
     this.channel.push("restart_game", {})
-    .receive("ok", (resp) => { this.setState(resp.room); })
+    .receive("ok", (resp) => { this.setState(resp.room); });
   }
 
   // Call this function when choosing a tile.

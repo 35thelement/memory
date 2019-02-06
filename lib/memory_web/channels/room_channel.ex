@@ -2,10 +2,12 @@ defmodule MemoryWeb.RoomChannel do
   use MemoryWeb, :channel
 
   alias Memory.Room
+  alias Memory.BackupAgent
 
   def join("room:" <> name, payload, socket) do
     if authorized?(payload) do
-      room = Room.new()
+      room = BackupAgent.get(name) || Room.new()
+      BackupAgent.put(name, room)
       socket = socket
       |> assign(:room, room)
       |> assign(:name, name)
@@ -21,11 +23,12 @@ defmodule MemoryWeb.RoomChannel do
     {:reply, {:ok, payload}, socket}
   end
 
-  # It is also common to receive messages from the client and
-  # broadcast to everyone in the current topic (room:lobby).
+  # Update the room when the user decides to choose.
   def handle_in("choose", %{"row" => r, "col" => c}, socket) do
+    name = socket.assigns[:name]
     room = Room.choose(socket.assigns[:room], r, c)
     socket = assign(socket, :room, room)
+    BackupAgent.put(name, room)
     {:reply, {:ok, %{"room" => Room.client_view(room)}}, socket}
   end
 
