@@ -13,4 +13,4 @@ echo "Starting app..."
 #_build/prod/rel/memory/bin/memory start
 
 # Foreground for testing and for systemd
-_build/prod/rel/memory/bin/memory foreground
+_build/prod/rel/memory2/bin/memory foreground
