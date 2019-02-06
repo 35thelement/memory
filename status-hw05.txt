@@ -1,0 +1,41 @@
+
+Web Dev Fall 2018 HW04 Status
+
+Answer the following questions:
+
+1. What's your name?
+
+Ben Romine
+
+2. What's the URL of the github repo with your work for this HW?
+
+
+
+3. What's the version number of your github release?
+
+
+
+4. What's the URL that you deployed to?
+
+http://memory2.element35.org
+
+5. Is your game functionality complete? If not, what's missing?
+
+The game functionality is complete.
+
+6. Is your game properly deployed? If not, what went wrong?
+
+
+
+7. How did you handle cards flipping back after a set timeout?
+
+I handled cards flipping back after a set timeout by adding a 'displayed' field
+to the state. This field would be changed by a display method 0.5 seconds before
+the choice logic was actually performed. Through this new method, I could
+display the card that I was clicking on, and then determine what to do with that
+card.
+
+And here's a list of tasks for grading comments. Just leave this here:
+ - Development
+ - Deployment
+ - Submission
