@@ -29,7 +29,8 @@ defmodule Memory.Room do
 
     %{
       board: b,
-      clicks: room.clicks
+      clicks: room.clicks,
+      score: room.score
     }
   end
 
@@ -45,6 +46,28 @@ defmodule Memory.Room do
 
     room
     |> Map.put(:board, displayBoard)
+  end
+
+  def allMatched([]) do
+    true
+  end
+
+  def allMatched([head | tail]) do
+    if !head.matched do
+      false
+    else
+      allMatched(tail)
+    end
+  end
+
+  def gameOver?(room) do
+    if allMatched(room.board) do
+      finalScore = 100 - (room.clicks - 16)
+      room
+      |> Map.put(:score, finalScore)
+    else
+      room
+    end
   end
 
   def findSelected(_room, [], _idx) do
@@ -65,8 +88,6 @@ defmodule Memory.Room do
 
     index = 4 * r + c
 
-    IO.inspect(selectedIndex)
-
     if selectedIndex === -1 do
       newVal = room.board
       |> Enum.at(index)
@@ -76,9 +97,11 @@ defmodule Memory.Room do
       newBoard = room.board
       |> List.replace_at(index, newVal)
 
-      room
+      selectedRoom = room
       |> Map.put(:board, newBoard)
       |> Map.put(:clicks, newClicks)
+
+      gameOver?(selectedRoom)
     else
       if Enum.at(room.board, selectedIndex).letter == Enum.at(room.board, index).letter do
         matched1 = room.board
@@ -97,9 +120,11 @@ defmodule Memory.Room do
         |> List.replace_at(index, matched1)
         |> List.replace_at(selectedIndex, matched2)
 
-        room
+        matchedRoom = room
         |> Map.put(:board, newBoard)
         |> Map.put(:clicks, newClicks)
+
+        gameOver?(matchedRoom)
       else
         unmatched1 = room.board
         |> Enum.at(index)
@@ -117,9 +142,11 @@ defmodule Memory.Room do
         |> List.replace_at(index, unmatched1)
         |> List.replace_at(selectedIndex, unmatched2)
 
-        room
+        unmatchedRoom = room
         |> Map.put(:board, newBoard)
         |> Map.put(:clicks, newClicks)
+
+        gameOver?(unmatchedRoom)
       end
     end
   end
