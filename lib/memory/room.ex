@@ -60,13 +60,17 @@ defmodule Memory.Room do
     end
   end
 
-  def gameOver?(room) do
-    if allMatched(room.board) do
-      finalScore = 100 - (room.clicks - 16)
-      room
+  def gameOver?(room, newBoard, newClicks) do
+    newRoom = room
+    |> Map.put(:board, newBoard)
+    |> Map.put(:clicks, newClicks)
+
+    if allMatched(newBoard) do
+      finalScore = 100 - (newClicks - 16)
+      newRoom
       |> Map.put(:score, finalScore)
     else
-      room
+      newRoom
     end
   end
 
@@ -82,6 +86,29 @@ defmodule Memory.Room do
     end
   end
 
+  def select(room, index) do
+    room.board
+    |> Enum.at(index)
+    |> Map.put(:selected, true)
+    |> Map.put(:displayed, true)
+  end
+
+  def match(room, index) do
+    room.board
+    |> Enum.at(index)
+    |> Map.put(:selected, false)
+    |> Map.put(:matched, true)
+    |> Map.put(:displayed, false)
+  end
+
+  def unmatch(room, index) do
+    room.board
+    |> Enum.at(index)
+    |> Map.put(:selected, false)
+    |> Map.put(:matched, false)
+    |> Map.put(:displayed, false)
+  end
+
   def choose(room, r, c) do
     newClicks = room.clicks + 1
     selectedIndex = findSelected(room, room.board, 0)
@@ -89,64 +116,31 @@ defmodule Memory.Room do
     index = 4 * r + c
 
     if selectedIndex === -1 do
-      newVal = room.board
-      |> Enum.at(index)
-      |> Map.put(:selected, true)
-      |> Map.put(:displayed, true)
+      newVal = select(room, index)
 
       newBoard = room.board
       |> List.replace_at(index, newVal)
 
-      selectedRoom = room
-      |> Map.put(:board, newBoard)
-      |> Map.put(:clicks, newClicks)
-
-      gameOver?(selectedRoom)
+      gameOver?(room, newBoard, newClicks)
     else
       if Enum.at(room.board, selectedIndex).letter == Enum.at(room.board, index).letter do
-        matched1 = room.board
-        |> Enum.at(index)
-        |> Map.put(:selected, false)
-        |> Map.put(:matched, true)
-        |> Map.put(:displayed, false)
-
-        matched2 = room.board
-        |> Enum.at(selectedIndex)
-        |> Map.put(:selected, false)
-        |> Map.put(:matched, true)
-        |> Map.put(:displayed, false)
+        matched1 = match(room, index)
+        matched2 = match(room, selectedIndex)
 
         newBoard = room.board
         |> List.replace_at(index, matched1)
         |> List.replace_at(selectedIndex, matched2)
 
-        matchedRoom = room
-        |> Map.put(:board, newBoard)
-        |> Map.put(:clicks, newClicks)
-
-        gameOver?(matchedRoom)
+        gameOver?(room, newBoard, newClicks)
       else
-        unmatched1 = room.board
-        |> Enum.at(index)
-        |> Map.put(:selected, false)
-        |> Map.put(:matched, false)
-        |> Map.put(:displayed, false)
-
-        unmatched2 = room.board
-        |> Enum.at(selectedIndex)
-        |> Map.put(:selected, false)
-        |> Map.put(:matched, false)
-        |> Map.put(:displayed, false)
+        unmatched1 = unmatch(room, index)
+        unmatched2 = unmatch(room, selectedIndex)
 
         newBoard = room.board
         |> List.replace_at(index, unmatched1)
         |> List.replace_at(selectedIndex, unmatched2)
 
-        unmatchedRoom = room
-        |> Map.put(:board, newBoard)
-        |> Map.put(:clicks, newClicks)
-
-        gameOver?(unmatchedRoom)
+        gameOver?(room, newBoard, newClicks)
       end
     end
   end
