@@ -6,7 +6,6 @@ export default function memory_init(root, channel) {
   ReactDOM.render(<Memory channel={channel} />, root);
 }
 
-
 class Memory extends React.Component {
   constructor(props) {
     super(props);
@@ -20,6 +19,7 @@ class Memory extends React.Component {
       board: []
     };
 
+    // Attempt to join the game.
     this.channel.join()
     .receive("ok", resp => {
       console.log("Joined successfully!", resp);
@@ -40,12 +40,19 @@ class Memory extends React.Component {
   choose(r, c) {
     // If we can click,
     if (this.state.clickable) {
+      // Make clicking impossible.
       this.setState({ clickable: false });
+      // Ask to display the value that was clicked,
+      // update the state with the response.
       this.channel.push("display", {row: r, col: c})
       .receive("ok", (resp) => { this.setState(resp.room); });
+      // Wait 1 second...
       setTimeout(function() {
+        // Ask to choose the value that was clicked,
+        // update the state with the response.
         this.channel.push("choose", {row: r, col: c})
         .receive("ok", (resp) => { this.setState(resp.room); });
+        // Enable clicking again.
         this.setState({ clickable: true });
       }.bind(this), 1000);
     }
@@ -81,32 +88,32 @@ class Memory extends React.Component {
 
 // Render a row in the board.
 function ShowRow(props) {
-  // Render each tile in the row.
+  // Render each card in the row.
   let renderedRow = _.map(props.row, (col, colIndex) => {
-    // If the tile is selected,
+    // If the card is selected,
     if (col.revealed) {
-      // Return an unclickable tile.
+      // Return an unclickable card.
       return (
         <div className="column" key={colIndex}>
-        {/* The tile has no onClick function because selected tiles cannot be chosen again. */}
+        {/* The card has no onClick function because selected cards cannot be chosen again. */}
         <div className="tile">
         {col.letter}
         </div>
         </div>
       );
-      // If the tile is matched,
+      // If the card is matched,
     } else if (col.matched) {
       return (
         <div className="column" key={colIndex}>
-        {/* Render a blank tile. */}
+        {/* Render a blank card. */}
         <div className="empty">{col.letter}</div>
         </div>
       );
     } else {
-      // Return a clickable tile.
+      // Return a clickable card.
       return (
         <div className="column" key={colIndex}>
-        {/* When clicked, the tile will choose itself. */}
+        {/* When clicked, the card will choose itself. */}
         <div className="tile" onClick={() => props.choose(props.rowIndex, colIndex)}>
         {col.letter}
         </div>

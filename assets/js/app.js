@@ -29,12 +29,15 @@ $(() => {
 var roomLink = document.getElementById("roomLink");
 var roomName = document.getElementById("roomName");
 
+// Update the link that the user will join based on the roomName field.
 function updateLink() {
   roomLink.href = '/room/' + encodeURIComponent(roomName.value);
   roomLink.firstChild.data = 'Join "' + roomName.value + '"';
 }
 
+// If the roomName field exists,
 if (roomName) {
+  // Add event listeners for change and keyup.
   roomName.addEventListener('change', updateLink);
   roomName.addEventListener('keyup', updateLink);
 }

@@ -32,7 +32,7 @@ defmodule MemoryWeb.RoomChannel do
     {:reply, {:ok, %{"room" => Room.client_view(room)}}, socket}
   end
 
-  # Update the room when the user decides to choose.
+  # Update the room when the user wants to choose a value.
   def handle_in("choose", %{"row" => r, "col" => c}, socket) do
     name = socket.assigns[:name]
     room = Room.choose(socket.assigns[:room], r, c)
@@ -41,6 +41,7 @@ defmodule MemoryWeb.RoomChannel do
     {:reply, {:ok, %{"room" => Room.client_view(room)}}, socket}
   end
 
+  # Update the room when the user wants to restart the game.
   def handle_in("restart", _, socket) do
     name = socket.assigns[:name]
     room = Room.new()
