@@ -13,7 +13,7 @@ https://github.com/35thelement/memory/
 
 3. What's the version number of your github release?
 
-v0.2
+v0.2.1
 
 4. What's the URL that you deployed to?
 
