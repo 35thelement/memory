@@ -9,11 +9,11 @@ Ben Romine
 
 2. What's the URL of the github repo with your work for this HW?
 
-
+https://github.com/35thelement/memory/
 
 3. What's the version number of your github release?
 
-
+v0.2
 
 4. What's the URL that you deployed to?
 
@@ -25,7 +25,7 @@ The game functionality is complete.
 
 6. Is your game properly deployed? If not, what went wrong?
 
-
+The game is properly deployed.
 
 7. How did you handle cards flipping back after a set timeout?
 
